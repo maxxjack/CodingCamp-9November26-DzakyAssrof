@@ -1,0 +1,851 @@
+/* =============================================================
+   Expense & Budget Visualizer — styles.css
+   Single CSS file for all styling (Requirement 9.2)
+============================================================= */
+
+/* -------------------------------------------------------------
+   1. CSS Reset / Normalize
+------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #1a1a2e;
+  background-color: #f4f6fb;
+  min-height: 100vh;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* -------------------------------------------------------------
+   2. Design Tokens
+------------------------------------------------------------- */
+:root {
+  --color-primary:         #4f46e5;
+  --color-primary-hover:   #4338ca;
+  --color-secondary:       #6b7280;
+  --color-secondary-hover: #4b5563;
+  --color-danger:          #dc2626;
+  --color-success:         #16a34a;
+  --color-info:            #0369a1;
+
+  --color-bg:              #f4f6fb;
+  --color-surface:         #ffffff;
+  --color-border:          #e2e8f0;
+  --color-text:            #1a1a2e;
+  --color-text-muted:      #6b7280;
+
+  --color-balance:         #4f46e5;
+  --color-balance-bg:      #eef2ff;
+
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+
+  --shadow-sm:  0 1px 3px rgba(0, 0, 0, .08);
+  --shadow-md:  0 4px 12px rgba(0, 0, 0, .10);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  --transition: 150ms ease;
+
+  /* Transaction list panel height */
+  --list-height: 340px;
+}
+
+/* -------------------------------------------------------------
+   3. Layout — Overall Page
+------------------------------------------------------------- */
+
+/* ── Header (Requirement 3.1 — always above all content) ── */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.app-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* Two-column area: transaction list + chart */
+.app-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* Card shell shared by all sections */
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-6);
+}
+
+/* ── Responsive breakpoints ── */
+@media (max-width: 768px) {
+  .app-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .app-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .app-main {
+    padding: var(--space-4) var(--space-3);
+    gap: var(--space-4);
+  }
+
+  .card {
+    padding: var(--space-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .balance-amount {
+    font-size: 1.375rem;
+  }
+
+  .app-title {
+    font-size: 1rem;
+  }
+}
+
+/* -------------------------------------------------------------
+   4. Header — Total Balance Display (Requirement 3.1)
+------------------------------------------------------------- */
+.app-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+.balance-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+}
+
+.balance-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+/* Large, prominent balance figure — clearly above all other content */
+.balance-amount {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-balance);
+  background-color: var(--color-balance-bg);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-md);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  /* Smooth value transitions */
+  transition: color var(--transition);
+}
+
+/* -------------------------------------------------------------
+   5. Section Titles
+------------------------------------------------------------- */
+.section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.subsection-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+/* -------------------------------------------------------------
+   6. Input Form — Transaction Entry (Requirement 1.3, 1.4)
+------------------------------------------------------------- */
+.form-section form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Each field + label + inline-error grouped together */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* Inline layout for the custom-category sub-form */
+.field-group--inline {
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.field-group--inline .field-label {
+  align-self: center;
+  white-space: nowrap;
+}
+
+.field-group--inline .field-input {
+  flex: 1;
+  min-width: 140px;
+}
+
+.field-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.field-input {
+  padding: var(--space-2) var(--space-3);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: #fafafa;
+  transition: border-color var(--transition), box-shadow var(--transition),
+    background-color var(--transition);
+  outline: none;
+  width: 100%;
+}
+
+.field-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+  background-color: #fff;
+}
+
+/* Validation failure state — toggled by UIRenderer.showInlineError */
+.field-input[aria-invalid="true"],
+.field-input.is-invalid {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+  background-color: #fff8f8;
+}
+
+/* Inline error message — always present in DOM; min-height prevents layout shift */
+.inline-error {
+  display: block;
+  min-height: 1.25em;
+  font-size: 0.8125rem;
+  color: var(--color-danger);
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+/* Submit button — full-width within the form */
+#transaction-form .btn--primary {
+  width: 100%;
+  margin-top: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  font-size: 1rem;
+}
+
+/* Custom category sub-form — separated from main form */
+.custom-category-wrapper {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+/* Inline error below the custom-category row */
+#add-category-form .inline-error {
+  margin-top: var(--space-1);
+}
+
+/* -------------------------------------------------------------
+   7. Buttons
+------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition: background-color var(--transition), box-shadow var(--transition),
+    transform 80ms ease;
+  white-space: nowrap;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--primary {
+  background-color: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 1px 4px rgba(79, 70, 229, 0.3);
+}
+
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  background-color: var(--color-primary-hover);
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.4);
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.btn--secondary {
+  background-color: var(--color-secondary);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.btn--secondary:hover,
+.btn--secondary:focus-visible {
+  background-color: var(--color-secondary-hover);
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+/* Delete button — subtle until hovered */
+.btn--danger {
+  background-color: transparent;
+  color: var(--color-danger);
+  font-size: 0.8125rem;
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.btn--danger:hover,
+.btn--danger:focus-visible {
+  background-color: rgba(220, 38, 38, 0.08);
+  border-color: var(--color-danger);
+  outline: 2px solid var(--color-danger);
+  outline-offset: 2px;
+}
+
+/* -------------------------------------------------------------
+   8. Transaction List (Requirement 2.1, 2.2, 2.3)
+------------------------------------------------------------- */
+.list-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+}
+
+.list-section__header .section-title {
+  margin-bottom: 0;
+}
+
+/* Scrollable container — fixed height, entries never truncated (Requirement 2.2) */
+.transaction-list {
+  height: var(--list-height);
+  overflow-y: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  scroll-behavior: smooth;
+  /* Prevent focus ring from being clipped */
+  overflow-x: hidden;
+}
+
+.transaction-list:focus-within {
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+/* Individual transaction entry */
+.transaction-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background-color: #fafafa;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: background-color var(--transition), border-color var(--transition);
+  /* Prevent shrinking when list fills up */
+  flex-shrink: 0;
+}
+
+.transaction-item:hover {
+  background-color: #f1f5fd;
+  border-color: #c7d2fe;
+}
+
+/* Info block — takes all available width */
+.transaction-item__info {
+  flex: 1;
+  min-width: 0; /* prevents text overflow breaking layout */
+}
+
+.transaction-item__name {
+  font-weight: 600;
+  font-size: 0.9375rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-text);
+}
+
+/* Amount + category on the same row, below the name */
+.transaction-item__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.8125rem;
+  margin-top: 2px;
+  flex-wrap: wrap;
+}
+
+.transaction-item__amount {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Category badge */
+.transaction-item__category {
+  display: inline-block;
+  padding: 1px var(--space-2);
+  background-color: var(--color-balance-bg);
+  color: var(--color-primary);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* Empty state — shown when no transactions exist (Requirement 2.3) */
+.transaction-list__empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+  font-style: italic;
+  text-align: center;
+  padding: var(--space-6);
+}
+
+/* -------------------------------------------------------------
+   9. Sort Control (Requirement 8.1)
+------------------------------------------------------------- */
+.sort-control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.sort-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.sort-select {
+  padding: var(--space-1) var(--space-3);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: #fafafa;
+  font-size: 0.875rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+  cursor: pointer;
+}
+
+.sort-select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.sort-select:hover {
+  border-color: var(--color-secondary);
+}
+
+/* -------------------------------------------------------------
+   10. Pie Chart Container (Requirement 4.1–4.5)
+------------------------------------------------------------- */
+.chart-section {
+  display: flex;
+  flex-direction: column;
+  /* Establish positioning context for the absolute placeholder overlay */
+  position: relative;
+}
+
+/* Keep chart section at the same visual height as the list section */
+.chart-section .section-title {
+  /* Already handled by generic .section-title rule */
+  flex-shrink: 0;
+}
+
+.chart-container {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Minimum height so the placeholder is readable even without data */
+  min-height: 280px;
+}
+
+/* Chart.js canvas — constrained so it never overflows its card */
+#pie-chart {
+  max-width: 100%;
+  max-height: 280px;
+  display: block;
+}
+
+/* Placeholder shown when: no transactions, Chart.js failed to load, or CDN error */
+.chart-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-4);
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+  font-style: italic;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 2px dashed var(--color-border);
+}
+
+/* CDN / network error variant — slightly more urgent visual treatment */
+.chart-placeholder--error {
+  color: var(--color-danger);
+  border-color: #fca5a5;
+  background-color: #fef2f2;
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* JS toggles display via inline style; CSS hidden utility class as fallback */
+.chart-placeholder.is-hidden {
+  display: none;
+}
+
+/* -------------------------------------------------------------
+   11. Monthly Summary Panel (Requirement 7.1–7.4)
+------------------------------------------------------------- */
+.summary-section {
+  /* Spans the full width below the two-column area — no extra styles needed */
+}
+
+.summary-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.month-select {
+  min-width: 180px;
+  /* Inherits .field-input sizing */
+}
+
+/* Container rendered by UIRenderer.renderMonthlySummary */
+.monthly-summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* Total row — prominent summary at the top of the breakdown */
+.monthly-summary__total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-balance-bg);
+  border-radius: var(--radius-md);
+  flex-wrap: wrap;
+}
+
+.monthly-summary__total-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+}
+
+.monthly-summary__total-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-balance);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Per-category grid — auto-fills to available width */
+.monthly-summary__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--space-3);
+  list-style: none;
+}
+
+/* Individual category card */
+.monthly-summary__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  background-color: #fafafa;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition), background-color var(--transition);
+}
+
+.monthly-summary__item:hover {
+  background-color: #f1f5fd;
+  border-color: #c7d2fe;
+}
+
+.monthly-summary__category {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.monthly-summary__amount {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Empty / no-data state */
+.monthly-summary__empty {
+  color: var(--color-text-muted);
+  font-style: italic;
+  font-size: 0.9375rem;
+  padding: var(--space-3) 0;
+}
+
+/* -------------------------------------------------------------
+   12. Toast Notifications (Requirement 5.5, 5.6, 9.5)
+------------------------------------------------------------- */
+
+/* Fixed container stacked above all content in the bottom-right corner */
+.toast-container {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  /* Prevent pointer events on the gap between toasts */
+  pointer-events: none;
+  max-width: 360px;
+  width: calc(100% - var(--space-6) * 2);
+}
+
+/* Individual toast message */
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.4;
+  /* Slide-in from below on creation */
+  animation: toast-in 200ms ease forwards;
+  /* Neutral default — overridden by type modifiers below */
+  background-color: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text);
+}
+
+/* Error toast — red tones */
+.toast--error {
+  background-color: #fef2f2;
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+
+/* Info toast — blue tones */
+.toast--info {
+  background-color: #eff6ff;
+  border-color: #93c5fd;
+  color: #1e40af;
+}
+
+/* Fade-out triggered by JS adding .is-hiding */
+.toast.is-hiding {
+  animation: toast-out 200ms ease forwards;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toast-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+/* Mobile: shift toast to bottom-center */
+@media (max-width: 480px) {
+  .toast-container {
+    right: var(--space-3);
+    left: var(--space-3);
+    bottom: var(--space-4);
+    width: auto;
+    max-width: none;
+  }
+}
+
+/* -------------------------------------------------------------
+   13. Scrollbar Styling (Chromium / WebKit)
+------------------------------------------------------------- */
+.transaction-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.transaction-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.transaction-list::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: 3px;
+}
+
+.transaction-list::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-secondary);
+}
+
+/* -------------------------------------------------------------
+   14. Utility / Accessibility
+------------------------------------------------------------- */
+
+/* Visually hide content while keeping it accessible to screen readers */
+.visually-hidden,
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Global keyboard focus indicator — overridden per-element where needed */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Suppress focus ring for mouse users while preserving it for keyboard */
+:focus:not(:focus-visible) {
+  outline: none;
+}

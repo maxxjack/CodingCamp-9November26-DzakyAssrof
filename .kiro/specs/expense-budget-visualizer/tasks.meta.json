@@ -1,0 +1,423 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. Set up project structure and HTML skeleton": [
+      {
+        "executionId": "a1a1b938-910b-4698-8636-8645b1d390b3",
+        "chatSessionId": "sess_45e4d57b-9e95-4f9b-8331-0fdcf54bc7b6",
+        "timestamp": 1794593659606
+      },
+      {
+        "executionId": "a1a1b938-910b-4698-8636-8645b1d390b3",
+        "chatSessionId": "sess_45e4d57b-9e95-4f9b-8331-0fdcf54bc7b6",
+        "timestamp": 1794594194146
+      }
+    ],
+    "2.1 Define DEFAULT_CATEGORIES, SortCriterion type, and in-memory state object; implement `State.getAll()`, `State.addTransaction()`, `State.deleteTransaction()`, `State.addCategory()`, `State.setSortCriterion()`, and `State.load()`": [
+      {
+        "executionId": "8753f135-ea0b-44e4-981e-5cf3dd16ca3f",
+        "chatSessionId": "sess_72846cec-44a8-4439-a1d5-104f5d6b6e47",
+        "timestamp": 1794594297930
+      },
+      {
+        "executionId": "8753f135-ea0b-44e4-981e-5cf3dd16ca3f",
+        "chatSessionId": "sess_72846cec-44a8-4439-a1d5-104f5d6b6e47",
+        "timestamp": 1794594456366
+      }
+    ],
+    "2.2 Implement `StorageModule.save()` and `StorageModule.load()` with try/catch handling for `QuotaExceededError`, malformed JSON, and empty storage; use key `'ebv_state'`": [
+      {
+        "executionId": "bb25ff0a-8dd5-478f-8250-4b53483f5b93",
+        "chatSessionId": "sess_fcfe8c9b-e513-4684-aaee-570e4f0bebbb",
+        "timestamp": 1794594542029
+      },
+      {
+        "executionId": "bb25ff0a-8dd5-478f-8250-4b53483f5b93",
+        "chatSessionId": "sess_fcfe8c9b-e513-4684-aaee-570e4f0bebbb",
+        "timestamp": 1794594827862
+      }
+    ],
+    "2. Implement constants, State module, and StorageModule": [
+      {
+        "executionId": "bb25ff0a-8dd5-478f-8250-4b53483f5b93",
+        "chatSessionId": "sess_fcfe8c9b-e513-4684-aaee-570e4f0bebbb",
+        "timestamp": 1794594828305
+      }
+    ],
+    "3.1 Implement `Validator.validateTransaction(formData)` enforcing: name non-empty/trimmed/≤100 chars, amount parseable finite number >0 ≤999,999,999.99 with ≤2 decimal places, category non-empty": [
+      {
+        "executionId": "fd5274d7-b4c4-471b-a99f-4546ba3582d6",
+        "chatSessionId": "sess_3462c7c0-9f9e-482b-9906-bc784f8c8a6e",
+        "timestamp": 1794594879829
+      },
+      {
+        "executionId": "fd5274d7-b4c4-471b-a99f-4546ba3582d6",
+        "chatSessionId": "sess_3462c7c0-9f9e-482b-9906-bc784f8c8a6e",
+        "timestamp": 1794596493518
+      }
+    ],
+    "3.2 Implement `Validator.validateCategory(name, existingCategories)` enforcing: 1–50 chars, case-insensitive uniqueness, total custom categories ≤20": [
+      {
+        "executionId": "39a1e6ff-3eaa-4f6f-8bd5-77ddf22bb899",
+        "chatSessionId": "sess_317f1d84-89cb-43fe-8cd5-0068bbb811ea",
+        "timestamp": 1794596538334
+      },
+      {
+        "executionId": "39a1e6ff-3eaa-4f6f-8bd5-77ddf22bb899",
+        "chatSessionId": "sess_317f1d84-89cb-43fe-8cd5-0068bbb811ea",
+        "timestamp": 1794597190841
+      }
+    ],
+    "3. Implement Validator module": [
+      {
+        "executionId": "39a1e6ff-3eaa-4f6f-8bd5-77ddf22bb899",
+        "chatSessionId": "sess_317f1d84-89cb-43fe-8cd5-0068bbb811ea",
+        "timestamp": 1794597191319
+      }
+    ],
+    "4. Checkpoint — core data layer": [
+      {
+        "executionId": "19e2fcfd-15ec-440d-baa5-91744910b34b",
+        "chatSessionId": "sess_98ada10d-5a83-46e9-a0dd-f1e3a50b21b1",
+        "timestamp": 1794597253975
+      },
+      {
+        "executionId": "19e2fcfd-15ec-440d-baa5-91744910b34b",
+        "chatSessionId": "sess_98ada10d-5a83-46e9-a0dd-f1e3a50b21b1",
+        "timestamp": 1794597801179
+      }
+    ],
+    "5.1 Implement `SortEngine.sort(transactions, criterion)` for `'amount-asc'`, `'amount-desc'`, `'category-asc'`, and `null`; use a stable sort that preserves insertion order (`createdAt` ascending) on ties; implement `SortEngine.insertSorted(transactions, newTx, criterion)`": [
+      {
+        "executionId": "c3e18238-e55d-4ae9-8a21-f176da2d2bb4",
+        "chatSessionId": "sess_6a7085f6-98c5-4c20-9dae-c8bebedb077e",
+        "timestamp": 1794597848851
+      },
+      {
+        "executionId": "c3e18238-e55d-4ae9-8a21-f176da2d2bb4",
+        "chatSessionId": "sess_6a7085f6-98c5-4c20-9dae-c8bebedb077e",
+        "timestamp": 1794598296953
+      }
+    ],
+    "5.3 Implement `MonthlyAggregator.getAvailableMonths(transactions)` returning sorted `'YYYY-MM'` strings, and `MonthlyAggregator.summarize(transactions, monthKey)` returning `{ total, byCategory }`": [
+      {
+        "executionId": "46096876-12f2-4bc2-afd1-11e6398a3fc1",
+        "chatSessionId": "sess_7d7d0b17-f202-48d8-9b61-ed05243e227f",
+        "timestamp": 1794598345377
+      },
+      {
+        "executionId": "46096876-12f2-4bc2-afd1-11e6398a3fc1",
+        "chatSessionId": "sess_7d7d0b17-f202-48d8-9b61-ed05243e227f",
+        "timestamp": 1794598659368
+      }
+    ],
+    "5. Implement SortEngine and MonthlyAggregator modules": [
+      {
+        "executionId": "46096876-12f2-4bc2-afd1-11e6398a3fc1",
+        "chatSessionId": "sess_7d7d0b17-f202-48d8-9b61-ed05243e227f",
+        "timestamp": 1794598659805
+      }
+    ],
+    "6.1 Implement `ChartModule.update(transactions)`: aggregate expense amounts by category, destroy existing Chart.js instance if present, re-create a `'pie'` chart with correct `labels` and `data` arrays; if no transactions exist, hide canvas and show placeholder; if `chartJsLoadFailed` is true, show CDN error message": [
+      {
+        "executionId": "96b3335d-301a-4a8f-805b-a165aed71e0b",
+        "chatSessionId": "sess_d5f90c63-9352-4ac5-9e03-31a4f4c97001",
+        "timestamp": 1794598704242
+      },
+      {
+        "executionId": "399c025d-1427-4d2d-afc8-95db59850d00",
+        "chatSessionId": "sess_45c267fa-582a-48df-9779-898eaafd89a6",
+        "timestamp": 1794600179526
+      },
+      {
+        "executionId": "399c025d-1427-4d2d-afc8-95db59850d00",
+        "chatSessionId": "sess_45c267fa-582a-48df-9779-898eaafd89a6",
+        "timestamp": 1794600534223
+      }
+    ],
+    "6.2 Implement `ChartModule.destroy()` to clean up the chart instance": [
+      {
+        "executionId": "a764b20d-6f31-401b-817e-91820edcc6d7",
+        "chatSessionId": "sess_e594a42e-193f-439c-9cef-8c499e7b2fa9",
+        "timestamp": 1794600737719
+      },
+      {
+        "executionId": "a764b20d-6f31-401b-817e-91820edcc6d7",
+        "chatSessionId": "sess_e594a42e-193f-439c-9cef-8c499e7b2fa9",
+        "timestamp": 1794600790163
+      }
+    ],
+    "6. Implement ChartModule": [
+      {
+        "executionId": "a764b20d-6f31-401b-817e-91820edcc6d7",
+        "chatSessionId": "sess_e594a42e-193f-439c-9cef-8c499e7b2fa9",
+        "timestamp": 1794600790708
+      }
+    ],
+    "7.3 Implement `UIRenderer.renderTransactionList(transactions, sortCriterion)` displaying name, formatted amount, and category per entry; show \"No transactions yet\" message when list is empty; implement scrollable container behavior": [
+      {
+        "executionId": "6bc924a4-c787-498d-b4b8-a3cd720b19eb",
+        "chatSessionId": "sess_393406c1-51bb-4356-a769-04aa087af1f8",
+        "timestamp": 1794600934189
+      },
+      {
+        "executionId": "6bc924a4-c787-498d-b4b8-a3cd720b19eb",
+        "chatSessionId": "sess_393406c1-51bb-4356-a769-04aa087af1f8",
+        "timestamp": 1794601450786
+      },
+      {
+        "executionId": "c2518911-f551-467f-b2df-fcbb4d43b961",
+        "chatSessionId": "sess_1d3e8424-0ecf-43a8-8d9b-d1d7fb07c8d2",
+        "timestamp": 1794602019528
+      },
+      {
+        "executionId": "c2518911-f551-467f-b2df-fcbb4d43b961",
+        "chatSessionId": "sess_1d3e8424-0ecf-43a8-8d9b-d1d7fb07c8d2",
+        "timestamp": 1794602210643
+      }
+    ],
+    "7.1 Implement `UIRenderer.renderBalance(transactions)` computing and displaying the total balance using `Intl.NumberFormat`; display `$0.00` on empty or invalid data": [
+      {
+        "executionId": "61dd992a-d206-47fd-bb9e-6b91b0001c53",
+        "chatSessionId": "sess_537aa328-e534-4441-a8ca-78599e2d68f8",
+        "timestamp": 1794601571192
+      },
+      {
+        "executionId": "61dd992a-d206-47fd-bb9e-6b91b0001c53",
+        "chatSessionId": "sess_537aa328-e534-4441-a8ca-78599e2d68f8",
+        "timestamp": 1794601944916
+      }
+    ],
+    "7.4 Implement `UIRenderer.renderCategoryDropdown(categories)` merging DEFAULT_CATEGORIES with custom categories into the form dropdown": [
+      {
+        "executionId": "7e4dcefa-3984-4484-aefb-1649ac3505b4",
+        "chatSessionId": "sess_21175d3a-f349-41bc-b29e-852e6b56a3b6",
+        "timestamp": 1794602362208
+      },
+      {
+        "executionId": "431afc8d-6c8c-4cf1-ad9c-ced65a4844a1",
+        "chatSessionId": "sess_b68d5330-ed80-4d7e-90ce-c6c0fbeb62a2",
+        "timestamp": 1794605005276
+      },
+      {
+        "executionId": "431afc8d-6c8c-4cf1-ad9c-ced65a4844a1",
+        "chatSessionId": "sess_b68d5330-ed80-4d7e-90ce-c6c0fbeb62a2",
+        "timestamp": 1794605357137
+      },
+      {
+        "executionId": "08620ff4-c406-43ea-ba38-ca7ca85eae2a",
+        "chatSessionId": "sess_7f1a51d4-f189-49ae-b626-6f3b421104b9",
+        "timestamp": 1794605445650
+      },
+      {
+        "executionId": "08620ff4-c406-43ea-ba38-ca7ca85eae2a",
+        "chatSessionId": "sess_7f1a51d4-f189-49ae-b626-6f3b421104b9",
+        "timestamp": 1794605966036
+      }
+    ],
+    "7.5 Implement `UIRenderer.renderMonthlySummary(transactions, selectedMonth)` showing total and per-category breakdown; show zero totals when no transactions exist for the selected month": [
+      {
+        "executionId": "f7ded8c0-7ade-4ac4-9327-d3d19e39b4fb",
+        "chatSessionId": "sess_d4da2aa4-d7b1-42e3-8a41-3ea4f684cb7d",
+        "timestamp": 1794602388024
+      },
+      {
+        "executionId": "7f2e87a2-4a32-4faa-a77e-f835e5071deb",
+        "chatSessionId": "sess_b037ee1a-ed98-4cc4-b857-1d8c24c407a8",
+        "timestamp": 1794606054013
+      },
+      {
+        "executionId": "7f2e87a2-4a32-4faa-a77e-f835e5071deb",
+        "chatSessionId": "sess_b037ee1a-ed98-4cc4-b857-1d8c24c407a8",
+        "timestamp": 1794606568047
+      },
+      {
+        "executionId": "14d543e3-0848-4ba3-91c6-b8c316fbbeca",
+        "chatSessionId": "sess_0990fdbc-5d75-4da2-9b05-328fc024616e",
+        "timestamp": 1794607387534
+      },
+      {
+        "executionId": "14d543e3-0848-4ba3-91c6-b8c316fbbeca",
+        "chatSessionId": "sess_0990fdbc-5d75-4da2-9b05-328fc024616e",
+        "timestamp": 1794607639679
+      }
+    ],
+    "7.6 Implement `UIRenderer.showInlineError(fieldId, message)`, `UIRenderer.clearInlineErrors()`, and `UIRenderer.showToast(message, type)` for `'error'` and `'info'` types": [
+      {
+        "executionId": "a12bf876-220d-4920-96f8-f608ab4e4c79",
+        "chatSessionId": "sess_873f98d6-7530-4b0d-8158-de8e043428f8",
+        "timestamp": 1794603829075
+      },
+      {
+        "executionId": "a12bf876-220d-4920-96f8-f608ab4e4c79",
+        "chatSessionId": "sess_873f98d6-7530-4b0d-8158-de8e043428f8",
+        "timestamp": 1794604863873
+      }
+    ],
+    "7.7 Implement `UIRenderer.render(state)` calling all sub-renderers in sequence": [
+      {
+        "executionId": "80b70002-625d-4ba7-ab4a-02106f06ff9d",
+        "chatSessionId": "sess_30a416b5-93a8-47c2-a23f-839690772e83",
+        "timestamp": 1794604909859
+      },
+      {
+        "executionId": "7d2d1546-e0b5-4478-b4a8-2d2c945fa78f",
+        "chatSessionId": "sess_123e8845-e429-4cbf-bbc0-4d92b6abe801",
+        "timestamp": 1794607706581
+      },
+      {
+        "executionId": "7d2d1546-e0b5-4478-b4a8-2d2c945fa78f",
+        "chatSessionId": "sess_123e8845-e429-4cbf-bbc0-4d92b6abe801",
+        "timestamp": 1794607789545
+      }
+    ],
+    "7. Implement UIRenderer module": [
+      {
+        "executionId": "7d2d1546-e0b5-4478-b4a8-2d2c945fa78f",
+        "chatSessionId": "sess_123e8845-e429-4cbf-bbc0-4d92b6abe801",
+        "timestamp": 1794607790150
+      }
+    ],
+    "8. Checkpoint — rendering layer": [
+      {
+        "executionId": "d0817bb8-2799-427f-8a2b-934c8e2bdecb",
+        "chatSessionId": "sess_03337876-0341-4ff8-8890-9d7f02086edd",
+        "timestamp": 1794607893621
+      },
+      {
+        "executionId": "d0817bb8-2799-427f-8a2b-934c8e2bdecb",
+        "chatSessionId": "sess_03337876-0341-4ff8-8890-9d7f02086edd",
+        "timestamp": 1794608350269
+      }
+    ],
+    "9.1 Implement `AppController.init()`: attach all DOM event listeners, call `StorageModule.load()` to bootstrap state, call `UIRenderer.render()` with loaded state; default monthly summary to current calendar month": [
+      {
+        "executionId": "970f7dae-df74-4240-b761-d735fe41cbeb",
+        "chatSessionId": "sess_64d78673-11c1-4dd0-b4db-3ec7a25e054a",
+        "timestamp": 1794608405135
+      },
+      {
+        "executionId": "970f7dae-df74-4240-b761-d735fe41cbeb",
+        "chatSessionId": "sess_64d78673-11c1-4dd0-b4db-3ec7a25e054a",
+        "timestamp": 1794608704780
+      }
+    ],
+    "9.2 Implement `AppController.handleAddTransaction(event)`: call `Validator.validateTransaction`, show inline errors on failure, mutate state, persist via `StorageModule.save`, handle `QuotaExceededError`, reset form on success, call `UIRenderer.render` and `ChartModule.update`": [
+      {
+        "executionId": "7d9577d2-e189-4ebf-870e-dd923aea1d17",
+        "chatSessionId": "sess_93e4708f-6582-4dde-9331-112ff66f89f5",
+        "timestamp": 1794608756987
+      },
+      {
+        "executionId": "7d9577d2-e189-4ebf-870e-dd923aea1d17",
+        "chatSessionId": "sess_93e4708f-6582-4dde-9331-112ff66f89f5",
+        "timestamp": 1794609025812
+      }
+    ],
+    "9.3 Implement `AppController.handleDeleteTransaction(id)`: show confirmation prompt, remove transaction from state, persist, call `UIRenderer.render` and `ChartModule.update`": [
+      {
+        "executionId": "71494fc4-8e68-4b68-8561-833db8e1b7a9",
+        "chatSessionId": "sess_878916d9-ba93-46b1-a6a9-427811903d25",
+        "timestamp": 1794609090926
+      },
+      {
+        "executionId": "71494fc4-8e68-4b68-8561-833db8e1b7a9",
+        "chatSessionId": "sess_878916d9-ba93-46b1-a6a9-427811903d25",
+        "timestamp": 1794609361591
+      }
+    ],
+    "9.4 Implement `AppController.handleAddCategory(event)`: call `Validator.validateCategory`, show inline error on failure, mutate state, persist via `StorageModule.save`, call `UIRenderer.renderCategoryDropdown`": [
+      {
+        "executionId": "7814452b-ce52-4a31-a657-fbe81e35a814",
+        "chatSessionId": "sess_21d50666-c71e-406b-8566-8c29a00093d9",
+        "timestamp": 1794609463608
+      },
+      {
+        "executionId": "7814452b-ce52-4a31-a657-fbe81e35a814",
+        "chatSessionId": "sess_21d50666-c71e-406b-8566-8c29a00093d9",
+        "timestamp": 1794610424320
+      }
+    ],
+    "9.5 Implement `AppController.handleSortChange(criterion)`: update state sort criterion, persist, call `UIRenderer.renderTransactionList`": [
+      {
+        "executionId": "53330978-9c0c-4b90-9be6-dd35532acdd6",
+        "chatSessionId": "sess_128c469a-ab64-41a2-af3d-1b72500c7ad2",
+        "timestamp": 1794610798166
+      },
+      {
+        "executionId": "53330978-9c0c-4b90-9be6-dd35532acdd6",
+        "chatSessionId": "sess_128c469a-ab64-41a2-af3d-1b72500c7ad2",
+        "timestamp": 1794610992666
+      }
+    ],
+    "9.6 Implement `AppController.handleMonthChange(monthKey)`: update selected month in UI, call `UIRenderer.renderMonthlySummary`": [
+      {
+        "executionId": "70d477e0-3675-4b8a-a8bb-fb9e31886953",
+        "chatSessionId": "sess_a6b11977-d7a5-4f92-8c0b-622102ac9628",
+        "timestamp": 1794611277806
+      },
+      {
+        "executionId": "70d477e0-3675-4b8a-a8bb-fb9e31886953",
+        "chatSessionId": "sess_a6b11977-d7a5-4f92-8c0b-622102ac9628",
+        "timestamp": 1794611985735
+      }
+    ],
+    "9.7 Add top-level `window.onerror` handler that shows a generic error toast for unhandled exceptions": [
+      {
+        "executionId": "53b10383-8f12-4664-9328-92e66cdf72e9",
+        "chatSessionId": "sess_3cc7bb98-2e9e-46a8-b12d-cdc4e3349ba9",
+        "timestamp": 1794612081483
+      },
+      {
+        "executionId": "53b10383-8f12-4664-9328-92e66cdf72e9",
+        "chatSessionId": "sess_3cc7bb98-2e9e-46a8-b12d-cdc4e3349ba9",
+        "timestamp": 1794612175315
+      }
+    ],
+    "9. Implement AppController and wire everything together": [
+      {
+        "executionId": "53b10383-8f12-4664-9328-92e66cdf72e9",
+        "chatSessionId": "sess_3cc7bb98-2e9e-46a8-b12d-cdc4e3349ba9",
+        "timestamp": 1794612175919
+      }
+    ],
+    "10.1 Style all UI sections in `css/styles.css`: header balance display, input form with inline error placement, scrollable transaction list, pie chart container with placeholder, monthly summary panel, sort control, and toast notification": [
+      {
+        "executionId": "b702c6fd-8b37-47e6-8cca-5003cbf32379",
+        "chatSessionId": "sess_181e9ee1-ae1e-44d3-9594-11996adfe621",
+        "timestamp": 1794613146246
+      },
+      {
+        "executionId": "b702c6fd-8b37-47e6-8cca-5003cbf32379",
+        "chatSessionId": "sess_181e9ee1-ae1e-44d3-9594-11996adfe621",
+        "timestamp": 1794614427271
+      }
+    ],
+    "10.2 Add ARIA labels, roles, and `aria-live` regions for balance display, inline errors, and toast notifications; ensure keyboard navigation for all interactive controls": [
+      {
+        "executionId": "4e6c8d58-136e-4d47-aeb1-e6a79027361a",
+        "chatSessionId": "sess_8d629f01-629b-4262-9cf7-d0f0f187141f",
+        "timestamp": 1794614885639
+      },
+      {
+        "executionId": "4e6c8d58-136e-4d47-aeb1-e6a79027361a",
+        "chatSessionId": "sess_8d629f01-629b-4262-9cf7-d0f0f187141f",
+        "timestamp": 1794620258852
+      }
+    ],
+    "10. Apply CSS styling and accessibility": [
+      {
+        "executionId": "4e6c8d58-136e-4d47-aeb1-e6a79027361a",
+        "chatSessionId": "sess_8d629f01-629b-4262-9cf7-d0f0f187141f",
+        "timestamp": 1794620259355
+      }
+    ],
+    "11. Final checkpoint — integration and cross-browser validation": [
+      {
+        "executionId": "28a23f3d-a308-481e-af0c-20b7de560490",
+        "chatSessionId": "sess_5cae49a0-bb1b-4831-9f75-ec0f07601d38",
+        "timestamp": 1794621666188
+      }
+    ]
+  }
+}
